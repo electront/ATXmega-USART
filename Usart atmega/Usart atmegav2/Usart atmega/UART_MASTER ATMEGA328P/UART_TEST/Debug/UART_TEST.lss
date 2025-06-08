@@ -1,0 +1,487 @@
+
+UART_TEST.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000378  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000304  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          000000d7  00800100  00800100  00000378  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000378  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000003a8  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000c8  00000000  00000000  000003e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00001222  00000000  00000000  000004b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000a5b  00000000  00000000  000016d2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000007b7  00000000  00000000  0000212d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000021c  00000000  00000000  000028e4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000007e0  00000000  00000000  00002b00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000632  00000000  00000000  000032e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000098  00000000  00000000  00003912  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  48:	0c 94 d3 00 	jmp	0x1a6	; 0x1a6 <__vector_18>
+  4c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  50:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  54:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  58:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  5c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  60:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  64:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_clear_bss>:
+  74:	21 e0       	ldi	r18, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	01 c0       	rjmp	.+2      	; 0x7e <.do_clear_bss_start>
+
+0000007c <.do_clear_bss_loop>:
+  7c:	1d 92       	st	X+, r1
+
+0000007e <.do_clear_bss_start>:
+  7e:	a7 3d       	cpi	r26, 0xD7	; 215
+  80:	b2 07       	cpc	r27, r18
+  82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
+  84:	0e 94 b6 00 	call	0x16c	; 0x16c <main>
+  88:	0c 94 80 01 	jmp	0x300	; 0x300 <_exit>
+
+0000008c <__bad_interrupt>:
+  8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000090 <Buffer_Inicializar>:
+		return true; //Esta vacia la cola.
+	}
+	else{
+		return false; //No esta vacia la cola.
+	}
+}
+  90:	fc 01       	movw	r30, r24
+  92:	e8 53       	subi	r30, 0x38	; 56
+  94:	ff 4f       	sbci	r31, 0xFF	; 255
+  96:	11 82       	std	Z+1, r1	; 0x01
+  98:	10 82       	st	Z, r1
+  9a:	32 96       	adiw	r30, 0x02	; 2
+  9c:	11 82       	std	Z+1, r1	; 0x01
+  9e:	10 82       	st	Z, r1
+  a0:	08 95       	ret
+
+000000a2 <Buffer_Esta_Lleno>:
+
+bool Buffer_Esta_Lleno(Buffer_s buffer){
+  a2:	cf 93       	push	r28
+  a4:	df 93       	push	r29
+  a6:	cd b7       	in	r28, 0x3d	; 61
+  a8:	de b7       	in	r29, 0x3e	; 62
+  aa:	c3 53       	subi	r28, 0x33	; 51
+  ac:	df 4f       	sbci	r29, 0xFF	; 255
+  ae:	88 81       	ld	r24, Y
+  b0:	99 81       	ldd	r25, Y+1	; 0x01
+  b2:	cd 5c       	subi	r28, 0xCD	; 205
+  b4:	d0 40       	sbci	r29, 0x00	; 0
+  b6:	c1 53       	subi	r28, 0x31	; 49
+  b8:	df 4f       	sbci	r29, 0xFF	; 255
+  ba:	48 81       	ld	r20, Y
+  bc:	59 81       	ldd	r21, Y+1	; 0x01
+  be:	cf 5c       	subi	r28, 0xCF	; 207
+  c0:	d0 40       	sbci	r29, 0x00	; 0
+	//Hay dos pisibles casos por los que puede estar llena la cola.
+	if(buffer.fin == TAMMAX - 1 && buffer.ini == 0){
+  c2:	43 36       	cpi	r20, 0x63	; 99
+  c4:	51 05       	cpc	r21, r1
+  c6:	11 f4       	brne	.+4      	; 0xcc <Buffer_Esta_Lleno+0x2a>
+  c8:	00 97       	sbiw	r24, 0x00	; 0
+  ca:	49 f0       	breq	.+18     	; 0xde <Buffer_Esta_Lleno+0x3c>
+		return true; //La cola esta llena
+	}
+	else if(buffer.fin == buffer.ini - 1){
+  cc:	9c 01       	movw	r18, r24
+  ce:	21 50       	subi	r18, 0x01	; 1
+  d0:	31 09       	sbc	r19, r1
+  d2:	81 e0       	ldi	r24, 0x01	; 1
+  d4:	24 17       	cp	r18, r20
+  d6:	35 07       	cpc	r19, r21
+  d8:	19 f0       	breq	.+6      	; 0xe0 <Buffer_Esta_Lleno+0x3e>
+  da:	80 e0       	ldi	r24, 0x00	; 0
+  dc:	01 c0       	rjmp	.+2      	; 0xe0 <Buffer_Esta_Lleno+0x3e>
+}
+
+bool Buffer_Esta_Lleno(Buffer_s buffer){
+	//Hay dos pisibles casos por los que puede estar llena la cola.
+	if(buffer.fin == TAMMAX - 1 && buffer.ini == 0){
+		return true; //La cola esta llena
+  de:	81 e0       	ldi	r24, 0x01	; 1
+		return true; //La cola esta llena.
+	}
+	else{
+		return false; //La cola no esta llena.
+	}
+}
+  e0:	df 91       	pop	r29
+  e2:	cf 91       	pop	r28
+  e4:	08 95       	ret
+
+000000e6 <Buffer_Escribir>:
+
+void Buffer_Escribir(Buffer_s *buffer, uint8_t elem){
+  e6:	1f 93       	push	r17
+  e8:	cf 93       	push	r28
+  ea:	df 93       	push	r29
+  ec:	ec 01       	movw	r28, r24
+  ee:	16 2f       	mov	r17, r22
+	if(Buffer_Esta_Lleno(*buffer) == false){
+  f0:	2d b7       	in	r18, 0x3d	; 61
+  f2:	3e b7       	in	r19, 0x3e	; 62
+  f4:	2c 5c       	subi	r18, 0xCC	; 204
+  f6:	31 09       	sbc	r19, r1
+  f8:	0f b6       	in	r0, 0x3f	; 63
+  fa:	f8 94       	cli
+  fc:	3e bf       	out	0x3e, r19	; 62
+  fe:	0f be       	out	0x3f, r0	; 63
+ 100:	2d bf       	out	0x3d, r18	; 61
+ 102:	ad b7       	in	r26, 0x3d	; 61
+ 104:	be b7       	in	r27, 0x3e	; 62
+ 106:	11 96       	adiw	r26, 0x01	; 1
+ 108:	8c ec       	ldi	r24, 0xCC	; 204
+ 10a:	fe 01       	movw	r30, r28
+ 10c:	01 90       	ld	r0, Z+
+ 10e:	0d 92       	st	X+, r0
+ 110:	8a 95       	dec	r24
+ 112:	e1 f7       	brne	.-8      	; 0x10c <Buffer_Escribir+0x26>
+ 114:	0e 94 51 00 	call	0xa2	; 0xa2 <Buffer_Esta_Lleno>
+ 118:	2d b7       	in	r18, 0x3d	; 61
+ 11a:	3e b7       	in	r19, 0x3e	; 62
+ 11c:	24 53       	subi	r18, 0x34	; 52
+ 11e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 120:	0f b6       	in	r0, 0x3f	; 63
+ 122:	f8 94       	cli
+ 124:	3e bf       	out	0x3e, r19	; 62
+ 126:	0f be       	out	0x3f, r0	; 63
+ 128:	2d bf       	out	0x3d, r18	; 61
+ 12a:	81 11       	cpse	r24, r1
+ 12c:	1b c0       	rjmp	.+54     	; 0x164 <Buffer_Escribir+0x7e>
+		buffer->list[buffer->fin] = elem;
+ 12e:	fe 01       	movw	r30, r28
+ 130:	e6 53       	subi	r30, 0x36	; 54
+ 132:	ff 4f       	sbci	r31, 0xFF	; 255
+ 134:	80 81       	ld	r24, Z
+ 136:	91 81       	ldd	r25, Z+1	; 0x01
+ 138:	fc 01       	movw	r30, r24
+ 13a:	ee 0f       	add	r30, r30
+ 13c:	ff 1f       	adc	r31, r31
+ 13e:	ec 0f       	add	r30, r28
+ 140:	fd 1f       	adc	r31, r29
+ 142:	61 2f       	mov	r22, r17
+ 144:	70 e0       	ldi	r23, 0x00	; 0
+ 146:	71 83       	std	Z+1, r23	; 0x01
+ 148:	60 83       	st	Z, r22
+		if(buffer->fin == TAMMAX -1){
+ 14a:	83 36       	cpi	r24, 0x63	; 99
+ 14c:	91 05       	cpc	r25, r1
+ 14e:	29 f4       	brne	.+10     	; 0x15a <Buffer_Escribir+0x74>
+			buffer->fin = 0;
+ 150:	c6 53       	subi	r28, 0x36	; 54
+ 152:	df 4f       	sbci	r29, 0xFF	; 255
+ 154:	19 82       	std	Y+1, r1	; 0x01
+ 156:	18 82       	st	Y, r1
+ 158:	05 c0       	rjmp	.+10     	; 0x164 <Buffer_Escribir+0x7e>
+		}
+		else{
+			buffer->fin = buffer->fin + 1;
+ 15a:	c6 53       	subi	r28, 0x36	; 54
+ 15c:	df 4f       	sbci	r29, 0xFF	; 255
+ 15e:	01 96       	adiw	r24, 0x01	; 1
+ 160:	99 83       	std	Y+1, r25	; 0x01
+ 162:	88 83       	st	Y, r24
+		}
+	}
+	else{
+		//printf("La cola esta llena\n");
+	}
+}
+ 164:	df 91       	pop	r29
+ 166:	cf 91       	pop	r28
+ 168:	1f 91       	pop	r17
+ 16a:	08 95       	ret
+
+0000016c <main>:
+
+
+//Master Test
+int main(void)
+{
+	cli();
+ 16c:	f8 94       	cli
+	Usart_init();
+ 16e:	0e 94 4c 01 	call	0x298	; 0x298 <Usart_init>
+	
+	sei();
+ 172:	78 94       	sei
+    /* Replace with your application code */
+    while (1)
+    {
+		Usart_Enviar_Comando(EQUIPO_ON);
+ 174:	87 e0       	ldi	r24, 0x07	; 7
+ 176:	0e 94 6c 01 	call	0x2d8	; 0x2d8 <Usart_Enviar_Comando>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 17a:	2f ef       	ldi	r18, 0xFF	; 255
+ 17c:	81 ee       	ldi	r24, 0xE1	; 225
+ 17e:	94 e0       	ldi	r25, 0x04	; 4
+ 180:	21 50       	subi	r18, 0x01	; 1
+ 182:	80 40       	sbci	r24, 0x00	; 0
+ 184:	90 40       	sbci	r25, 0x00	; 0
+ 186:	e1 f7       	brne	.-8      	; 0x180 <main+0x14>
+ 188:	00 c0       	rjmp	.+0      	; 0x18a <main+0x1e>
+ 18a:	00 00       	nop
+		_delay_ms(100);
+		Usart_Enviar_Comando(EQUIPO_OFF);
+ 18c:	88 e0       	ldi	r24, 0x08	; 8
+ 18e:	0e 94 6c 01 	call	0x2d8	; 0x2d8 <Usart_Enviar_Comando>
+ 192:	2f ef       	ldi	r18, 0xFF	; 255
+ 194:	81 ee       	ldi	r24, 0xE1	; 225
+ 196:	94 e0       	ldi	r25, 0x04	; 4
+ 198:	21 50       	subi	r18, 0x01	; 1
+ 19a:	80 40       	sbci	r24, 0x00	; 0
+ 19c:	90 40       	sbci	r25, 0x00	; 0
+ 19e:	e1 f7       	brne	.-8      	; 0x198 <main+0x2c>
+ 1a0:	00 c0       	rjmp	.+0      	; 0x1a2 <main+0x36>
+ 1a2:	00 00       	nop
+ 1a4:	e7 cf       	rjmp	.-50     	; 0x174 <main+0x8>
+
+000001a6 <__vector_18>:
+	
+	//if(Serie_Esta_Enviando_Datos() == false){
+	//	uint8_t valor_enviar = Buffer_Leer(&Buffer_Entrada);
+	//	Usart_Enviar_hex(valor_enviar);
+	//}
+}
+ 1a6:	1f 92       	push	r1
+ 1a8:	0f 92       	push	r0
+ 1aa:	0f b6       	in	r0, 0x3f	; 63
+ 1ac:	0f 92       	push	r0
+ 1ae:	11 24       	eor	r1, r1
+ 1b0:	2f 93       	push	r18
+ 1b2:	3f 93       	push	r19
+ 1b4:	4f 93       	push	r20
+ 1b6:	5f 93       	push	r21
+ 1b8:	6f 93       	push	r22
+ 1ba:	7f 93       	push	r23
+ 1bc:	8f 93       	push	r24
+ 1be:	9f 93       	push	r25
+ 1c0:	af 93       	push	r26
+ 1c2:	bf 93       	push	r27
+ 1c4:	cf 93       	push	r28
+ 1c6:	ef 93       	push	r30
+ 1c8:	ff 93       	push	r31
+ 1ca:	c0 91 c6 00 	lds	r28, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 1ce:	2d b7       	in	r18, 0x3d	; 61
+ 1d0:	3e b7       	in	r19, 0x3e	; 62
+ 1d2:	2c 5c       	subi	r18, 0xCC	; 204
+ 1d4:	31 09       	sbc	r19, r1
+ 1d6:	0f b6       	in	r0, 0x3f	; 63
+ 1d8:	f8 94       	cli
+ 1da:	3e bf       	out	0x3e, r19	; 62
+ 1dc:	0f be       	out	0x3f, r0	; 63
+ 1de:	2d bf       	out	0x3d, r18	; 61
+ 1e0:	ad b7       	in	r26, 0x3d	; 61
+ 1e2:	be b7       	in	r27, 0x3e	; 62
+ 1e4:	11 96       	adiw	r26, 0x01	; 1
+ 1e6:	8c ec       	ldi	r24, 0xCC	; 204
+ 1e8:	eb e0       	ldi	r30, 0x0B	; 11
+ 1ea:	f1 e0       	ldi	r31, 0x01	; 1
+ 1ec:	01 90       	ld	r0, Z+
+ 1ee:	0d 92       	st	X+, r0
+ 1f0:	8a 95       	dec	r24
+ 1f2:	e1 f7       	brne	.-8      	; 0x1ec <__vector_18+0x46>
+ 1f4:	0e 94 51 00 	call	0xa2	; 0xa2 <Buffer_Esta_Lleno>
+ 1f8:	2d b7       	in	r18, 0x3d	; 61
+ 1fa:	3e b7       	in	r19, 0x3e	; 62
+ 1fc:	24 53       	subi	r18, 0x34	; 52
+ 1fe:	3f 4f       	sbci	r19, 0xFF	; 255
+ 200:	0f b6       	in	r0, 0x3f	; 63
+ 202:	f8 94       	cli
+ 204:	3e bf       	out	0x3e, r19	; 62
+ 206:	0f be       	out	0x3f, r0	; 63
+ 208:	2d bf       	out	0x3d, r18	; 61
+ 20a:	81 11       	cpse	r24, r1
+ 20c:	05 c0       	rjmp	.+10     	; 0x218 <__vector_18+0x72>
+ 20e:	6c 2f       	mov	r22, r28
+ 210:	8b e0       	ldi	r24, 0x0B	; 11
+ 212:	91 e0       	ldi	r25, 0x01	; 1
+ 214:	0e 94 73 00 	call	0xe6	; 0xe6 <Buffer_Escribir>
+ 218:	ff 91       	pop	r31
+ 21a:	ef 91       	pop	r30
+ 21c:	cf 91       	pop	r28
+ 21e:	bf 91       	pop	r27
+ 220:	af 91       	pop	r26
+ 222:	9f 91       	pop	r25
+ 224:	8f 91       	pop	r24
+ 226:	7f 91       	pop	r23
+ 228:	6f 91       	pop	r22
+ 22a:	5f 91       	pop	r21
+ 22c:	4f 91       	pop	r20
+ 22e:	3f 91       	pop	r19
+ 230:	2f 91       	pop	r18
+ 232:	0f 90       	pop	r0
+ 234:	0f be       	out	0x3f, r0	; 63
+ 236:	0f 90       	pop	r0
+ 238:	1f 90       	pop	r1
+ 23a:	18 95       	reti
+
+0000023c <Usart_Inicializar_Buffer>:
+ 23c:	cf 93       	push	r28
+ 23e:	df 93       	push	r29
+ 240:	cd b7       	in	r28, 0x3d	; 61
+ 242:	de b7       	in	r29, 0x3e	; 62
+ 244:	cc 5c       	subi	r28, 0xCC	; 204
+ 246:	d1 09       	sbc	r29, r1
+ 248:	0f b6       	in	r0, 0x3f	; 63
+ 24a:	f8 94       	cli
+ 24c:	de bf       	out	0x3e, r29	; 62
+ 24e:	0f be       	out	0x3f, r0	; 63
+ 250:	cd bf       	out	0x3d, r28	; 61
+ 252:	ce 01       	movw	r24, r28
+ 254:	01 96       	adiw	r24, 0x01	; 1
+ 256:	0e 94 48 00 	call	0x90	; 0x90 <Buffer_Inicializar>
+ 25a:	8c ec       	ldi	r24, 0xCC	; 204
+ 25c:	fe 01       	movw	r30, r28
+ 25e:	31 96       	adiw	r30, 0x01	; 1
+ 260:	ab e0       	ldi	r26, 0x0B	; 11
+ 262:	b1 e0       	ldi	r27, 0x01	; 1
+ 264:	01 90       	ld	r0, Z+
+ 266:	0d 92       	st	X+, r0
+ 268:	8a 95       	dec	r24
+ 26a:	e1 f7       	brne	.-8      	; 0x264 <Usart_Inicializar_Buffer+0x28>
+ 26c:	e0 e0       	ldi	r30, 0x00	; 0
+ 26e:	f1 e0       	ldi	r31, 0x01	; 1
+ 270:	16 82       	std	Z+6, r1	; 0x06
+ 272:	17 82       	std	Z+7, r1	; 0x07
+ 274:	10 86       	std	Z+8, r1	; 0x08
+ 276:	11 86       	std	Z+9, r1	; 0x09
+ 278:	12 86       	std	Z+10, r1	; 0x0a
+ 27a:	15 82       	std	Z+5, r1	; 0x05
+ 27c:	12 82       	std	Z+2, r1	; 0x02
+ 27e:	14 82       	std	Z+4, r1	; 0x04
+ 280:	13 82       	std	Z+3, r1	; 0x03
+ 282:	11 82       	std	Z+1, r1	; 0x01
+ 284:	c4 53       	subi	r28, 0x34	; 52
+ 286:	df 4f       	sbci	r29, 0xFF	; 255
+ 288:	0f b6       	in	r0, 0x3f	; 63
+ 28a:	f8 94       	cli
+ 28c:	de bf       	out	0x3e, r29	; 62
+ 28e:	0f be       	out	0x3f, r0	; 63
+ 290:	cd bf       	out	0x3d, r28	; 61
+ 292:	df 91       	pop	r29
+ 294:	cf 91       	pop	r28
+ 296:	08 95       	ret
+
+00000298 <Usart_init>:
+ 298:	51 9a       	sbi	0x0a, 1	; 10
+ 29a:	50 98       	cbi	0x0a, 0	; 10
+ 29c:	e1 ec       	ldi	r30, 0xC1	; 193
+ 29e:	f0 e0       	ldi	r31, 0x00	; 0
+ 2a0:	80 81       	ld	r24, Z
+ 2a2:	88 61       	ori	r24, 0x18	; 24
+ 2a4:	80 83       	st	Z, r24
+ 2a6:	80 81       	ld	r24, Z
+ 2a8:	80 68       	ori	r24, 0x80	; 128
+ 2aa:	80 83       	st	Z, r24
+ 2ac:	e2 ec       	ldi	r30, 0xC2	; 194
+ 2ae:	f0 e0       	ldi	r31, 0x00	; 0
+ 2b0:	80 81       	ld	r24, Z
+ 2b2:	86 63       	ori	r24, 0x36	; 54
+ 2b4:	80 83       	st	Z, r24
+ 2b6:	83 e3       	ldi	r24, 0x33	; 51
+ 2b8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ba:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 2be:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+ 2c2:	0e 94 1e 01 	call	0x23c	; 0x23c <Usart_Inicializar_Buffer>
+ 2c6:	08 95       	ret
+
+000002c8 <Usart_Enviar_Hex>:
+ 2c8:	e0 ec       	ldi	r30, 0xC0	; 192
+ 2ca:	f0 e0       	ldi	r31, 0x00	; 0
+ 2cc:	90 81       	ld	r25, Z
+ 2ce:	95 ff       	sbrs	r25, 5
+ 2d0:	fd cf       	rjmp	.-6      	; 0x2cc <Usart_Enviar_Hex+0x4>
+ 2d2:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 2d6:	08 95       	ret
+
+000002d8 <Usart_Enviar_Comando>:
+
+void Usart_Enviar_Comando(Command comando){ //Enviar comando.
+ 2d8:	cf 93       	push	r28
+ 2da:	c8 2f       	mov	r28, r24
+	
+	checksum ^= 0x02;
+	checksum ^= ENVIO_COMANDO;
+	checksum ^= comando;
+	
+	Usart_Enviar_Hex(COMIENZO_TRAMA);
+ 2dc:	82 e0       	ldi	r24, 0x02	; 2
+ 2de:	0e 94 64 01 	call	0x2c8	; 0x2c8 <Usart_Enviar_Hex>
+	Usart_Enviar_Hex(0x02); //Significa que se va a enviar 2 byte, (comando, 1 byte de datos);
+ 2e2:	82 e0       	ldi	r24, 0x02	; 2
+ 2e4:	0e 94 64 01 	call	0x2c8	; 0x2c8 <Usart_Enviar_Hex>
+	Usart_Enviar_Hex(ENVIO_COMANDO);
+ 2e8:	84 e2       	ldi	r24, 0x24	; 36
+ 2ea:	0e 94 64 01 	call	0x2c8	; 0x2c8 <Usart_Enviar_Hex>
+	Usart_Enviar_Hex(comando);
+ 2ee:	8c 2f       	mov	r24, r28
+ 2f0:	0e 94 64 01 	call	0x2c8	; 0x2c8 <Usart_Enviar_Hex>
+	Usart_Enviar_Hex(checksum);	//checksum
+ 2f4:	86 e2       	ldi	r24, 0x26	; 38
+ 2f6:	8c 27       	eor	r24, r28
+ 2f8:	0e 94 64 01 	call	0x2c8	; 0x2c8 <Usart_Enviar_Hex>
+}
+ 2fc:	cf 91       	pop	r28
+ 2fe:	08 95       	ret
+
+00000300 <_exit>:
+ 300:	f8 94       	cli
+
+00000302 <__stop_program>:
+ 302:	ff cf       	rjmp	.-2      	; 0x302 <__stop_program>

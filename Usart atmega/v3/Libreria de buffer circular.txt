@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define TAMMAX 100  // Tamaño máximo del buffer
+
+typedef struct {
+    int list[TAMMAX];  // Arreglo para almacenar los elementos de la cola
+    int ini;           // Índice del primer elemento en la cola
+    int fin;           // Índice del último elemento en la cola
+    int count;         // Número actual de elementos en la cola
+} Buffer_s;
+
+// Función para inicializar el buffer
+void Buffer_Inicializar(Buffer_s *buffer) {
+    buffer->ini = 0;
+    buffer->fin = -1;
+    buffer->count = 0;
+}
+
+// Función para verificar si la cola está vacía
+bool Buffer_Esta_Vacio(Buffer_s *buffer) {
+    return buffer->count == 0;
+}
+
+// Función para verificar si la cola está llena
+bool Buffer_Esta_Lleno(Buffer_s *buffer) {
+    return buffer->count == TAMMAX;
+}
+
+// Función para agregar un elemento al final de la cola (renombrada a Buffer_Add)
+bool Buffer_Add(Buffer_s *buffer, int valor) {
+    if (Buffer_Esta_Lleno(buffer)) {
+        printf("Error: El buffer está lleno.\n");
+        return false;
+    }
+    buffer->fin = (buffer->fin + 1) % TAMMAX;  // Aseguramos que el índice se ajuste al tamaño del buffer
+    buffer->list[buffer->fin] = valor;
+    buffer->count++;
+    return true;
+}
+
+// Función para eliminar un elemento del frente de la cola (renombrada a Buffer_Leer)
+bool Buffer_Leer(Buffer_s *buffer, int *valor) {
+    if (Buffer_Esta_Vacio(buffer)) {
+        printf("Error: El buffer está vacío.\n");
+        return false;
+    }
+    *valor = buffer->list[buffer->ini];
+    buffer->ini = (buffer->ini + 1) % TAMMAX;  // Ajustamos el índice del inicio
+    buffer->count--;
+    return true;
+}
+
+
+
+
+
+Ejemplo de como usarlo 
+
+int main() {
+    Buffer_s buffer;
+    Buffer_Inicializar(&buffer);  // Inicializamos el buffer
+
+    Buffer_Add(&buffer, 10);  // Agregamos elementos usando la nueva función Buffer_Add
+    Buffer_Add(&buffer, 20);
+    Buffer_Add(&buffer, 30);
+
+    int valor;
+    Buffer_Leer(&buffer, &valor);  // Leemos un elemento usando la nueva función Buffer_Leer
+    printf("Elemento leído: %d\n", valor);
+
+    Buffer_Leer(&buffer, &valor);  // Leemos otro elemento
+    printf("Elemento leído: %d\n", valor);
+
+    return 0;
+}
+
+//Salida por cmd
+Elemento leído: 10
+Elemento leído: 20

@@ -1,0 +1,142 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// Definición de la estructura del buffer dinámico
+typedef struct {
+    int *list;         // Puntero al arreglo dinámico
+    int ini;           // Índice del primer elemento
+    int fin;           // Índice del último elemento
+    int count;         // Número de elementos actuales
+    int capacity;      // Capacidad actual del buffer
+    int inactividad;   // Contador de inactividad
+} Buffer_s;
+
+// Función para inicializar el buffer dinámico
+void Buffer_Inicializar(Buffer_s *buffer, int initial_capacity) {
+    buffer->list = (int *)malloc(initial_capacity * sizeof(int));
+    if (buffer->list == NULL) {
+        fprintf(stderr, "Error: No se pudo asignar memoria.\n");
+        exit(EXIT_FAILURE);
+    }
+    buffer->ini = 0;
+    buffer->fin = -1;
+    buffer->count = 0;
+    buffer->capacity = initial_capacity;
+    buffer->inactividad = 0;  // Inicializamos el contador de inactividad
+}
+
+// Función para liberar la memoria del buffer dinámico
+void Buffer_Liberar(Buffer_s *buffer) {
+    if (buffer->list != NULL) {
+        free(buffer->list);
+        buffer->list = NULL;
+    }
+    buffer->ini = 0;
+    buffer->fin = -1;
+    buffer->count = 0;
+    buffer->capacity = 0;
+    buffer->inactividad = 0;
+}
+
+// Función para verificar si la cola está vacía
+bool Buffer_Esta_Vacio(Buffer_s *buffer) {
+    return buffer->count == 0;
+}
+
+// Función para verificar si la cola está llena
+bool Buffer_Esta_Lleno(Buffer_s *buffer) {
+    return buffer->count == buffer->capacity;
+}
+
+// Función para redimensionar el buffer dinámico
+void Buffer_Redimensionar(Buffer_s *buffer, int new_capacity) {
+    int *new_list = (int *)realloc(buffer->list, new_capacity * sizeof(int));
+    if (new_list == NULL) {
+        fprintf(stderr, "Error: No se pudo redimensionar el buffer.\n");
+        exit(EXIT_FAILURE);
+    }
+    // Ajustamos los índices si es necesario
+    if (buffer->ini > buffer->fin) {
+        for (int i = 0; i < buffer->count; i++) {
+            new_list[i] = buffer->list[(buffer->ini + i) % buffer->capacity];
+        }
+        buffer->ini = 0;
+        buffer->fin = buffer->count - 1;
+    }
+    buffer->list = new_list;
+    buffer->capacity = new_capacity;
+}
+
+// Función para optimizar el tamaño del buffer (reducir capacidad si es necesario)
+void Buffer_Optimizar(Buffer_s *buffer) {
+    if (buffer->count < buffer->capacity / 2) {
+        int new_capacity = buffer->count > 0 ? buffer->count : 1; // Evitar capacidad cero
+        printf("Optimizando buffer: Reduciendo capacidad de %d a %d\n", buffer->capacity, new_capacity);
+        Buffer_Redimensionar(buffer, new_capacity);
+    }
+}
+
+// Función para agregar un elemento al final de la cola
+bool Buffer_Add(Buffer_s *buffer, int valor) {
+    buffer->inactividad = 0;  // Reiniciamos el contador de inactividad
+    if (Buffer_Esta_Lleno(buffer)) {
+        Buffer_Redimensionar(buffer, buffer->capacity * 2);  // Duplicamos la capacidad
+    }
+    buffer->fin = (buffer->fin + 1) % buffer->capacity;
+    buffer->list[buffer->fin] = valor;
+    buffer->count++;
+    return true;
+}
+
+// Función para eliminar un elemento del frente de la cola
+bool Buffer_Leer(Buffer_s *buffer, int *valor) {
+    buffer->inactividad = 0;  // Reiniciamos el contador de inactividad
+    if (Buffer_Esta_Vacio(buffer)) {
+        printf("Error: El buffer está vacío.\n");
+        return false;
+    }
+    *valor = buffer->list[buffer->ini];
+    buffer->ini = (buffer->ini + 1) % buffer->capacity;
+    buffer->count--;
+    return true;
+}
+
+// Función para actualizar el contador de inactividad
+void Buffer_ActualizarInactividad(Buffer_s *buffer) {
+    buffer->inactividad++;
+    if (buffer->inactividad > 5) {  // Umbral de inactividad (ejemplo: 5 ciclos)
+        Buffer_Liberar(buffer);     // Liberamos la memoria automáticamente
+        printf("Buffer liberado automáticamente debido a inactividad.\n");
+    }
+}
+
+
+
+Ejemplo
+
+
+int main() {
+    Buffer_s buffer;
+    Buffer_Inicializar(&buffer, 10);  // Inicializamos el buffer con capacidad inicial de 10
+
+    // Agregamos algunos elementos
+    Buffer_Add(&buffer, 10);
+    Buffer_Add(&buffer, 20);
+    Buffer_Add(&buffer, 30);
+
+    // Leemos algunos elementos
+    int valor;
+    Buffer_Leer(&buffer, &valor);
+    printf("Elemento leído: %d\n", valor);
+
+    // Optimizamos el buffer
+    Buffer_Optimizar(&buffer);
+
+    // Simulamos inactividad
+    for (int i = 0; i < 6; i++) {
+        Buffer_ActualizarInactividad(&buffer);  // Incrementamos el contador de inactividad
+    }
+
+    return 0;
+}
